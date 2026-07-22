@@ -5,6 +5,10 @@ It starts from the parts that are independent of the final Kimi K3 checkpoint:
 expert placement, expert streaming, cache policy, quantized expert matmul, and
 release-time validation gates.
 
+Colibrì credit: the reference idea comes from JustVugg's
+https://github.com/JustVugg/colibri project. This repository is an independent
+OpenClaw-built scaffold for Kimi K3, not an official Colibrì port.
+
 ## What Is Locked Now
 
 - Runtime language: C, no Python required for inference.

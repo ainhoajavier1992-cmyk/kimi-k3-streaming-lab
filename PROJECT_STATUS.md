@@ -12,6 +12,20 @@
 - Kimi snapshot/converter planning skeleton.
 - Regression tests proving cache size and batch-union do not change outputs.
 
+## Attribution
+
+The project is inspired by JustVugg's
+[colibrì](https://github.com/JustVugg/colibri), the C runtime that demonstrated
+expert streaming for GLM-5.2. This repository is an independent Kimi-oriented
+scaffold built from that architectural idea.
+
+## Build Method
+
+The initial scaffold was built with OpenClaw assistance: research, code
+generation, test writing, and documentation were done in an OpenClaw/Codex
+engineering session. The project is public/open so other developers can repair,
+replace, and extend the scaffolding as Kimi K3 artifacts become available.
+
 ## Verified
 
 ```bash
