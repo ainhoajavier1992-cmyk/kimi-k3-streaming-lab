@@ -1,0 +1,6 @@
+build/
+fixtures/
+*.txt
+*.log
+__pycache__/
+.DS_Store
