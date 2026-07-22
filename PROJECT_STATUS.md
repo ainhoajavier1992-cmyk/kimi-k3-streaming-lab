@@ -51,6 +51,23 @@ Before full model download, we need:
 Only then can the real Kimi adapter be locked and validated against a
 Transformers oracle.
 
+For the full missing-pieces list, see [MISSING.md](MISSING.md).
+
+## What We Can Still Do Now
+
+Several useful tasks do not require full Kimi K3 weights:
+
+- add CI and project templates
+- build a local safetensors metadata reader
+- improve the converter skeleton around tensor-map validation
+- add disk I/O benchmarks
+- create synthetic oracle tests
+- modularize the current C runtime
+- document Kimi K2/K2.x precedent more deeply
+- prepare issue labels and contribution checklists
+
+For the staged completion plan, see [ROADMAP.md](ROADMAP.md).
+
 ## Next Engineering Steps After K3 Release
 
 1. Fetch metadata only.

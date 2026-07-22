@@ -19,6 +19,7 @@ $(BIN): $(SRC) | $(BUILD_DIR)
 
 smoke: $(BIN)
 	rm -rf fixtures/tiny
+	mkdir -p fixtures
 	$(BIN) fixture --out fixtures/tiny --layers 4 --experts 16 --hidden 32 --inter 64 --topk 2 --seed 7
 	$(BIN) inspect --model fixtures/tiny
 	$(BIN) run --model fixtures/tiny --tokens 12 --cache 3 --trace

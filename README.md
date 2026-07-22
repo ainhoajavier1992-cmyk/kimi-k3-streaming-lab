@@ -80,6 +80,8 @@ weight index.
 See:
 
 - [PROJECT_STATUS.md](PROJECT_STATUS.md)
+- [MISSING.md](MISSING.md)
+- [ROADMAP.md](ROADMAP.md)
 - [docs/ARCHITECTURE_LOCK.md](docs/ARCHITECTURE_LOCK.md)
 - [docs/MODEL_DOWNLOAD_HANDOFF.md](docs/MODEL_DOWNLOAD_HANDOFF.md)
 - [docs/KIMI_PRECEDENT_SIZE_MATH.md](docs/KIMI_PRECEDENT_SIZE_MATH.md)
@@ -106,6 +108,8 @@ python3 tools/kimi_convert_skeleton.py --snapshot /path/to/kimi-k3-snapshot
 
 This is an open project. Good first areas:
 
+- close items listed in [MISSING.md](MISSING.md)
+- follow the staged plan in [ROADMAP.md](ROADMAP.md)
 - real Kimi K3 tensor-name mapping once the model is released
 - safetensors/FP8/int4 conversion
 - exact DeepSeek-V3/Kimi attention path
