@@ -15,8 +15,13 @@ Kimi-oriented implementation scaffold.
 
 ## Blocked Until Official Kimi K3 Artifacts Exist
 
-We need the official public release artifacts before the exact architecture can
-be locked:
+Public high-level Kimi K3 information exists, including 2.8T parameters,
+Stable LatentMoE, 16 active experts out of 896, Kimi Delta Attention, Attention
+Residuals, native vision, and a 1M-token context window. See
+[docs/KIMI_K3_PUBLIC_INFO.md](docs/KIMI_K3_PUBLIC_INFO.md).
+
+We still need the official local-runtime release artifacts before the exact
+implementation can be locked:
 
 - `config.json`
 - `generation_config.json`

@@ -36,8 +36,13 @@ make probe
 
 ## Waiting For
 
-Kimi K3 is not downloadable yet in a useful form. The public page currently has
-no weights, no `config.json`, no tokenizer files, and no safetensors index.
+Kimi K3 has public high-level architecture information, including 2.8T total
+parameters, Stable LatentMoE, 16 active experts out of 896, Kimi Delta
+Attention, Attention Residuals, native vision, and a 1M-token context window.
+
+Kimi K3 is still not downloadable in a useful local-runtime form. Current public
+sources do not expose the exact model repo files needed here: weights,
+`config.json`, tokenizer files, and a safetensors index.
 
 Before full model download, we need:
 
@@ -50,6 +55,9 @@ Before full model download, we need:
 
 Only then can the real Kimi adapter be locked and validated against a
 Transformers oracle.
+
+For the current public information summary, see
+[docs/KIMI_K3_PUBLIC_INFO.md](docs/KIMI_K3_PUBLIC_INFO.md).
 
 For the full missing-pieces list, see [MISSING.md](MISSING.md).
 

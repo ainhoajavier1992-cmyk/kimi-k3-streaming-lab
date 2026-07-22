@@ -9,7 +9,11 @@ import urllib.error
 import urllib.request
 
 
-K3_REPO = "reteetzad/Kimi-K3"
+K3_REPOS = [
+    "moonshotai/Kimi-K3",
+    "reteetzad/Kimi-K3",
+    "audnai/penclaw-Kimi-K3.0-abliterated-GGUF",
+]
 K2_REPOS = [
     "moonshotai/Kimi-K2-Instruct",
     "moonshotai/Kimi-K2.6",
@@ -33,6 +37,10 @@ def try_fetch_json(url: str):
 
 def repo_api(repo: str):
     return try_fetch_json(f"https://huggingface.co/api/models/{repo}")
+
+
+def repo_tree(repo: str):
+    return try_fetch_json(f"https://huggingface.co/api/models/{repo}/tree/main")
 
 
 def raw_json(repo: str, name: str):
@@ -77,17 +85,49 @@ def summarize_config(repo: str, cfg: dict) -> dict:
 
 def main() -> int:
     print("Kimi K3 public release probe")
-    k3 = repo_api(K3_REPO)
-    siblings = [s.get("rfilename") for s in k3.get("siblings", []) if isinstance(s, dict)]
+    found_usable_k3 = False
+    for repo in K3_REPOS:
+        k3 = repo_api(repo)
+        tree = repo_tree(repo)
+        siblings = [s.get("rfilename") for s in k3.get("siblings", []) if isinstance(s, dict)]
+        tree_paths = [s.get("path") for s in tree if isinstance(s, dict)] if isinstance(tree, list) else []
+        names = sorted(set(siblings + tree_paths))
+        has_config = "config.json" in names
+        has_weights = any(str(s).endswith(".safetensors") or str(s).endswith(".gguf") for s in names)
+        found_usable_k3 = found_usable_k3 or (has_config and has_weights)
+        print(json.dumps(
+            {
+                "candidate_repo": repo,
+                "api_error": k3.get("error") if isinstance(k3, dict) else None,
+                "tree_error": tree.get("error") if isinstance(tree, dict) else None,
+                "lastModified": k3.get("lastModified") if isinstance(k3, dict) else None,
+                "usedStorage": k3.get("usedStorage") if isinstance(k3, dict) else None,
+                "files": names[:40],
+                "has_config": has_config,
+                "has_weights": has_weights,
+                "cardData": k3.get("cardData") if isinstance(k3, dict) else None,
+            },
+            indent=2,
+        ))
+
+    print("\nKimi K3 official public summary")
     print(json.dumps(
         {
-            "k3_repo": K3_REPO,
-            "lastModified": k3.get("lastModified"),
-            "usedStorage": k3.get("usedStorage"),
-            "siblings": siblings,
-            "has_config": "config.json" in siblings,
-            "has_weights": any(str(s).endswith(".safetensors") for s in siblings),
-            "cardData": k3.get("cardData"),
+            "api_model_id": "kimi-k3",
+            "public_summary": {
+                "total_parameters": "2.8T",
+                "context_window": "1M tokens",
+                "attention": "Kimi Delta Attention",
+                "residual": "Attention Residuals",
+                "moe": "Stable LatentMoE, 16 active out of 896 experts",
+                "modalities": "text + native vision",
+            },
+            "source_docs": [
+                "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart",
+                "https://platform.kimi.ai/docs/models.md",
+                "https://www.kimi.com/blog/kimi-k3",
+            ],
+            "local_runtime_status": "High-level architecture is public; exact config/tokenizer/weight-index/modeling files are still required.",
         },
         indent=2,
     ))
@@ -100,10 +140,10 @@ def main() -> int:
             continue
         print(json.dumps(summarize_config(repo, cfg), indent=2))
 
-    if "config.json" not in siblings:
-        print("\nSTATUS: K3 config/weights are not published yet. Continue synthetic engine work; do not download model weights yet.")
+    if not found_usable_k3:
+        print("\nSTATUS: No candidate K3 repo currently exposes both config and weights. Continue synthetic engine work; do not download model weights yet.")
     else:
-        print("\nSTATUS: K3 config is present. Next step: run tools/kimi_convert_skeleton.py against a local snapshot.")
+        print("\nSTATUS: A candidate K3 repo exposes config and weights. Next step: run tools/kimi_convert_skeleton.py against a local snapshot.")
     return 0
 
 

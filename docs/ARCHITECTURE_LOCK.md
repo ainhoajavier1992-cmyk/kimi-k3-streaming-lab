@@ -43,10 +43,26 @@ OpenClaw-built scaffold for Kimi K3, not an official Colibrì port.
 
 ## Current Public Evidence
 
-The Kimi K3 Hugging Face stub at `reteetzad/Kimi-K3` currently has only a model
-card and `.gitattributes`; no `config.json`, no safetensors, and no modeling
-code. That means we can build and test engine infrastructure now, but we cannot
-claim token correctness for K3 yet.
+Official Kimi docs and the Kimi K3 tech blog now provide high-level architecture
+information:
+
+- 2.8T total parameters.
+- 1M-token context window.
+- Native vision.
+- Kimi Delta Attention (KDA).
+- Attention Residuals (AttnRes).
+- Stable LatentMoE.
+- 16 active experts out of 896.
+- MXFP4 weights with MXFP8 activations.
+
+See [KIMI_K3_PUBLIC_INFO.md](KIMI_K3_PUBLIC_INFO.md) for source links and the
+current metadata status.
+
+This evidence strengthens the case for a Colibri-style expert-streaming runtime.
+It still does not provide the exact `config.json`, tokenizer, modeling code,
+weight index, tensor names, KDA layout, AttnRes wiring, or checkpoint format
+needed for a faithful local runtime. We can build and test engine infrastructure
+now, but we cannot claim token correctness for K3 yet.
 
 Kimi K2/K2.x public configs are strong precedent:
 

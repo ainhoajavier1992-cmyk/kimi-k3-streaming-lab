@@ -1,7 +1,7 @@
 # Kimi K3 Streaming Lab
 
 This is a C scaffold for a Colibri-style MoE expert-streaming engine targeting
-Kimi K3 once its real config and weights are published.
+Kimi K3 once its exact local-runtime metadata and weights are published.
 
 ## Credit And Inspiration
 
@@ -73,23 +73,28 @@ prints Kimi K2/K2.x architecture precedent.
 
 ## Current State
 
-The engine is ready for model-independent work. K3-specific correctness is
-blocked until K3 publishes at least a real `config.json`, modeling code, and a
-weight index.
+The engine is ready for model-independent work. Kimi has published high-level K3
+architecture information: 2.8T parameters, Kimi Delta Attention, Attention
+Residuals, Stable LatentMoE, 16 active experts out of 896, native vision, and a
+1M-token context window. K3-specific correctness is still blocked until the
+local-runtime artifacts exist: a real `config.json`, tokenizer/modeling code,
+and a weight index.
 
 See:
 
 - [PROJECT_STATUS.md](PROJECT_STATUS.md)
 - [MISSING.md](MISSING.md)
 - [ROADMAP.md](ROADMAP.md)
+- [docs/KIMI_K3_PUBLIC_INFO.md](docs/KIMI_K3_PUBLIC_INFO.md)
 - [docs/ARCHITECTURE_LOCK.md](docs/ARCHITECTURE_LOCK.md)
 - [docs/MODEL_DOWNLOAD_HANDOFF.md](docs/MODEL_DOWNLOAD_HANDOFF.md)
 - [docs/KIMI_PRECEDENT_SIZE_MATH.md](docs/KIMI_PRECEDENT_SIZE_MATH.md)
 
 ## What We Are Waiting For
 
-Do not download full Kimi K3 weights yet. The current public K3 page is only a
-release stub. We are waiting for:
+Do not download full Kimi K3 weights yet. Public API/blog metadata exists, but
+the exact model files needed by this runtime are still not available. We are
+waiting for:
 
 - official `config.json`
 - official modeling/configuration Python files, or upstream Transformers support
